@@ -1,28 +1,21 @@
-## Hi there 👋 I'm Fabien
+# FabienDostieIT
 
-Welcome to our organization GitHub page! Here you'll find our open-source projects and contributions.
+Welcome to our organization GitHub page! Here you'll find our combined stats from personal and organization repositories.
 
-## Organization Stats
+## Combined GitHub Stats
+
+| Stat | Personal | Organization | Combined |
+|------|----------|--------------|----------|
+| Repositories | 26 | 5 | 31 |
+| Stars | 1 | 1 | 2 |
+| Forks | 0 | 0 | 0 |
+
+
+## Top Languages
+TypeScript: 60.6% | JavaScript: 37.0% | CSS: 1.3% | Python: 0.6% | HTML: 0.3% | Handlebars: 0.1% | SCSS: 0.1% | Dockerfile: 0.0%
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=fabiendostie&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&role=ORGANIZATION" alt="fabiendostie GitHub Stats"/>
+  <img src="https://github.com/FabienDostieIT/.github/raw/main/assets/language-chart.png" alt="Top Languages" width="500">
 </div>
 
-## Our Top Languages
-
-<!-- We'll add language stats here in the next steps -->
-
-## Recent Activity
-
-<!-- We'll add contribution activity here in the next steps -->
-
-<!--
-
-**Here are some ideas to get you started:**
-
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
+_Last updated: 2025-04-21_
