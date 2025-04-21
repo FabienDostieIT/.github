@@ -36,5 +36,12 @@ jobs:
           git config --global user.email 'action@github.com'
           git add profile/README.md
           git add assets/
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update combined stats"
-          git push
+          # Check if there are changes to commit
+          if ! git diff --quiet || ! git diff --staged --quiet; then
+            git commit -m "Update combined stats"
+            # Pull latest changes before pushing
+            git pull --rebase
+            git push
+          else
+            echo "No changes to commit."
+          fi
