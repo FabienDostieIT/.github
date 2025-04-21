@@ -33,6 +33,13 @@ jobs:
 
       - name: Commit and push if changed
         run: |
+          echo "--- Git Status Before Add ---"
+          git status
+          echo "--- Git Diff Before Add ---"
+          # Use cat to handle potential pagination/coloring from diff
+          git diff profile/README.md | cat 
+          echo "---------------------------"
+          
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git add profile/README.md
