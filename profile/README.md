@@ -30,7 +30,6 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 <!--END_STATS_CARD-->
 
 ### 💻 Top Languages
-TypeScript: 60.6% | JavaScript: 37.0% | CSS: 1.3% | Python: 0.6% | HTML: 0.3% | Handlebars: 0.1% | SCSS: 0.1% | Dockerfile: 0.0%
 
 <!--START_LANG_CARD-->
 <!-- Language card will be inserted here -->
