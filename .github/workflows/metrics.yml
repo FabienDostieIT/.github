@@ -1,0 +1,53 @@
+name: GitHub Metrics
+
+on:
+  # Schedule updates (runs every day at midnight)
+  schedule: [{cron: "0 0 * * *"}]
+  # Lines below let you run workflow manually and on each commit
+  workflow_dispatch:
+  push: {branches: ["master", "main"]}
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to write results back to repository
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          # Your GitHub token
+          # The default token is sufficient for most cases. Add PAT if you want private contribution stats
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Options
+          user: fabiendostie
+          template: classic # Use the classic template
+          base: header, activity, community, repositories, metadata # Include basic header, activity, community stats, repo info, and metadata
+          config_timezone: America/Montreal # Set timezone
+          config_display: large # Tweak layout for potentially larger output
+
+          # Plugins
+          plugin_activity: yes
+          plugin_activity_limit: 5             # Display 5 recent events
+          plugin_activity_days: 14             # Show activity from last 14 days
+          plugin_activity_filter: all          # Show all activity types
+
+          plugin_languages: yes
+          plugin_languages_limit: 12            # Try to show top 12 languages
+          plugin_languages_threshold: 2%        # Minimum percentage to display
+          plugin_languages_colors: github       # Use GitHub's language colors
+
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year # Show last 6 months
+
+          plugin_habits: yes
+          plugin_habits_from: 200               # Analyze recent commits for habits
+          plugin_habits_days: 14                # Look at last 14 days
+          plugin_habits_charts: yes             # Show charts for commits per day/week
+          plugin_habits_trim: yes               # Hide days/hours with no commits
+
+          plugin_repositories: yes
+          plugin_repositories_order: featured, pinned # Order by featured, then pinned
+
+          # The output filename for the generated SVG
+          filename: profile/metrics.svg 
