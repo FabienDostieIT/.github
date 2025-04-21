@@ -26,11 +26,13 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 ## 📊 GitHub Metrics Dashboard
 
 <!--START_STATS_CARD-->
+[![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=fabiendostie&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
 <!--END_STATS_CARD-->
 
 ### 💻 Top Languages
 
 <!--START_LANG_CARD-->
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=fabiendostie&layout=compact&theme=tokyonight&langs_count=10&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
 <!--END_LANG_CARD-->
 
 ### Contribution Activity
