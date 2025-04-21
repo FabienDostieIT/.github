@@ -32,9 +32,9 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 <div align="center">
  ### 💻 Top Languages
 
- <!--START_LANG_CARD-->
- [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=fabiendostie&layout=pie&theme=tokyonight&langs_count=12&hide_border=true&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
- <!--END_LANG_CARD-->
+<!--START_LANG_CARD-->
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=fabiendostie&layout=compact&theme=tokyonight&langs_count=12&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
+<!--END_LANG_CARD-->
 </div>
 
 <div align="center">
