@@ -26,21 +26,12 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 ## 📊 GitHub Metrics Dashboard
 
 <div align="center">
- <!--START_STATS_CARD--> [![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=fabiendostie&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats) <!--END_STATS_CARD-->
+  <!-- GitHub Metrics SVG will be here -->
+  ![Metrics](profile/metrics.svg)
 </div>
 
 <div align="center">
- ### 💻 Top Languages
-
-<!--START_LANG_CARD-->
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=fabiendostie&layout=compact&theme=tokyonight&langs_count=12&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
-<!--END_LANG_CARD-->
-</div>
-
-<div align="center">
- ### Contribution Activity
-
- <a href="https://github.com/Ashutosh00710/github-readme-activity-graph"><img alt="Fabien Dostie\'s Activity Graph" src="https://github-readme-activity-graph.vercel.app/graph?username=fabiendostie&bg_color=0d1117&color=ffffff&line=00b4ab&point=ffffff&area=true&hide_border=true" /></a>
+  <!-- Placeholder for potential future content or removed sections -->
 </div>
 
 ## Experience and Tools
