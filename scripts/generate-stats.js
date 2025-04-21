@@ -6,6 +6,7 @@ const path = require('path');
 async function updateReadme() {
   // Path to README file
   const readmePath = path.join(process.cwd(), 'profile', 'README.md');
+  console.log(`Attempting to update README at path: ${readmePath}`); // DEBUG
   
   // Read current README
   let readmeContent = fs.existsSync(readmePath) 
@@ -51,8 +52,26 @@ async function updateReadme() {
       readmeContent += `\n\n${lastUpdatedText}`;
   }
 
+  console.log('--- README content BEFORE write (snippet) ---'); // DEBUG
+  console.log(readmeContent.substring(0, 300)); // DEBUG
+  console.log('---------------------------------------------'); // DEBUG
+
   // Write updated README
-  fs.writeFileSync(readmePath, readmeContent.trim() + '\n'); 
+  try {
+    fs.writeFileSync(readmePath, readmeContent.trim() + '\n'); 
+    console.log('writeFileSync completed successfully.'); // DEBUG
+
+    // DEBUG: Read the file back immediately after writing
+    const contentAfterWrite = fs.readFileSync(readmePath, 'utf8');
+    console.log('--- README content AFTER write (read back - snippet) ---'); // DEBUG
+    console.log(contentAfterWrite.substring(0, 300)); // DEBUG
+    console.log('-----------------------------------------------------'); // DEBUG
+
+  } catch (writeError) {
+    console.error(`Error writing file to ${readmePath}:`, writeError); // DEBUG
+    throw writeError; // Re-throw error to fail the script
+  }
+
   console.log('README updated successfully with stats cards and timestamp.');
 }
 
