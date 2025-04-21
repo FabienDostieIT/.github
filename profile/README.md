@@ -26,9 +26,7 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 ## 📊 GitHub Metrics Dashboard
 
 <div align="center">
- <!--START_STATS_CARD-->
- [![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=fabiendostie&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
- <!--END_STATS_CARD-->
+ <!--START_STATS_CARD--> [![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=fabiendostie&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats) <!--END_STATS_CARD-->
 </div>
 
 <div align="center">
@@ -49,7 +47,7 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 
 <details>
 <summary>I have some experience with:</summary>
-### I have some experience with:
+
 <div align="center">
   <!-- Web -->
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="html5" width="20" height="20"/>
@@ -63,8 +61,8 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jquery/jquery-original.svg" alt="jquery" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/npm/npm-original-wordmark.svg" alt="npm" width="20" height="20"/>
   <!-- Backend -->
+  <img src="https://cdn.simpleicons.org/flask/ffffff" alt="flask" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="20" height="20"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flask/flask-original-wordmark.svg" alt="flask" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="20" height="20"/>
@@ -86,7 +84,7 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 
 <details>
 <summary>Some of the tools I use frequently:</summary>
-### Some of the tools I use frequently:
+
 <div align="center">
   <!-- OS -->
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/windows8/windows8-original.svg" alt="windows" width="20" height="20"/>
