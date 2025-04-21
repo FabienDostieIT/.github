@@ -26,22 +26,14 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 ## 📊 GitHub Metrics Dashboard
 
 <!--START_STATS_CARD-->
-<!-- Stats card will be inserted here -->
 <!--END_STATS_CARD-->
 
 ### 💻 Top Languages
 
 <!--START_LANG_CARD-->
-<!-- Language card will be inserted here -->
 <!--END_LANG_CARD-->
 
 ### Contribution Activity
-<div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=fabiendostie&theme=tokyonight" alt="Contribution Streak" />
-</div>
-
-### Languages and Technologies
-<!-- Your workflow is already updating this section -->
 
 ## Experience and Tools
 ### I have some experience with:
