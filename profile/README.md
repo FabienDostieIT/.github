@@ -27,7 +27,7 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 
 <div align="center">
   <!-- GitHub Metrics SVG will be here -->
-  ![Metrics](profile/metrics.svg)
+  <img src="./metrics.svg" alt="GitHub Metrics" />
 </div>
 
 <div align="center">
@@ -36,7 +36,7 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 
 ## Experience and Tools
 
-<details>
+
 <summary>I have some experience with:</summary>
 
 <div align="center">
@@ -73,7 +73,7 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 </div>
 </details>
 
-<details>
+
 <summary>Some of the tools I use frequently:</summary>
 
 <div align="center">
