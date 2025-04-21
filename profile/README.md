@@ -50,6 +50,33 @@ TypeScript: 60.6% | JavaScript: 37.0% | CSS: 1.3% | Python: 0.6% | HTML: 0.3% | 
 ### Languages and Technologies
 <!-- Your workflow is already updating this section -->
 
+## Combined GitHub Stats
+
+| Stat | Personal | Organization | Combined |
+|------|----------|--------------|----------|
+| Repositories | 26 | 5 | 31 |
+| Stars | 1 | 1 | 2 |
+| Forks | 0 | 0 | 0 |
+
+
+## Top Languages
+  * C++: 32.4%
+  * TypeScript: 24.8%
+  * JavaScript: 17.3%
+  * C: 13.1%
+  * Lua: 5.5%
+  * Jupyter Notebook: 2.9%
+  * Python: 2.1%
+  * CSS: 0.6%
+  * Shell: 0.5%
+  * SuperCollider: 0.4%
+  * Processing: 0.2%
+  * HTML: 0.2%
+
+<div align="center">
+  <img src="https://github.com/FabienDostieIT/.github/raw/main/assets/language-chart.png" alt="Top Languages" width="500">
+</div>
+
 ## Experience and Tools
 ### I have some experience with:
 <div align="center">
@@ -147,5 +174,3 @@ TypeScript: 60.6% | JavaScript: 37.0% | CSS: 1.3% | Python: 0.6% | HTML: 0.3% | 
 [Contact information and social links]
 
 _Last updated: 2025-04-21_
-
-
