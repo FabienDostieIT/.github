@@ -6,7 +6,7 @@ const Chart = require('chart.js/auto');
 
 // Initialize Octokit with GitHub token
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
+  auth: process.env.PAT_TOKEN || process.env.GITHUB_TOKEN, // Use PAT if available
 });
 
 // Create assets directory if it doesn't exist
@@ -19,10 +19,10 @@ async function fetchPersonalStats() {
   const username = process.env.PERSONAL_USERNAME;
   console.log(`Fetching stats for personal account: ${username}`);
   
-  // Get user's public repositories
-  const { data: repos } = await octokit.repos.listForUser({
+  // Get user's repositories using pagination
+  const repos = await octokit.paginate(octokit.repos.listForUser, {
     username,
-    per_page: 100,
+    per_page: 100, // Still specify per_page for efficiency
   });
   
   // Count stars, forks, and contributions
@@ -35,19 +35,17 @@ async function fetchPersonalStats() {
   
   // Get language data for each repo
   for (const repo of repos) {
-    if (!repo.fork) {
-      try {
-        const { data: languages } = await octokit.repos.listLanguages({
-          owner: username,
-          repo: repo.name,
-        });
-        
-        for (const [language, bytes] of Object.entries(languages)) {
-          stats.languages[language] = (stats.languages[language] || 0) + bytes;
-        }
-      } catch (error) {
-        console.error(`Error fetching languages for ${repo.name}:`, error);
+    try {
+      const { data: languages } = await octokit.repos.listLanguages({
+        owner: username,
+        repo: repo.name,
+      });
+      
+      for (const [language, bytes] of Object.entries(languages)) {
+        stats.languages[language] = (stats.languages[language] || 0) + bytes;
       }
+    } catch (error) {
+      console.error(`Error fetching languages for ${repo.name}:`, error);
     }
   }
   
@@ -58,10 +56,10 @@ async function fetchOrganizationStats() {
   const orgName = process.env.ORG_NAME;
   console.log(`Fetching stats for organization: ${orgName}`);
   
-  // Get organization's public repositories
-  const { data: repos } = await octokit.repos.listForOrg({
+  // Get organization's repositories using pagination
+  const repos = await octokit.paginate(octokit.repos.listForOrg, {
     org: orgName,
-    per_page: 100,
+    per_page: 100, // Still specify per_page for efficiency
   });
   
   // Count stars, forks, and contributions
@@ -106,7 +104,7 @@ async function generateLanguageChart(personalStats, orgStats) {
   // Sort languages by bytes
   const sortedLanguages = Object.entries(combinedLanguages)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 8); // Take top 8 languages
+    .slice(0, 12); // Take top 12 languages
   
   // Prepare data for chart
   const labels = sortedLanguages.map(([language]) => language);
@@ -190,33 +188,48 @@ async function updateReadme(statsTable, languageData) {
   
   // Format language data for README
   const totalBytes = Object.values(languageData.languages).reduce((a, b) => a + b, 0);
-  const languagePercentages = Object.entries(languageData.languages)
+  const languageListItems = Object.entries(languageData.languages)
     .map(([language, bytes]) => {
-      const percentage = ((bytes / totalBytes) * 100).toFixed(1);
-      return `${language}: ${percentage}%`;
+      const percentage = totalBytes > 0 ? ((bytes / totalBytes) * 100).toFixed(1) : 0;
+      return `  * ${language}: ${percentage}%`;
     })
-    .join(' | ');
+    .join('\n');
   
-  // Update README content
-  const newReadmeContent = `# ${process.env.ORG_NAME}
+  // Define the section content placeholders if they don't exist
+  const statsPlaceholder = '## Combined GitHub Stats';
+  const languagesPlaceholder = '## Top Languages';
+  const experiencePlaceholder = '## Experience and Tools'; // Use this as an anchor
+  const lastUpdatedPlaceholder = '_Last updated:';
 
-Welcome to our organization GitHub page! Here you'll find our combined stats from personal and organization repositories.
+  let statsSection = `${statsPlaceholder}\n${statsTable}`;
+  let languagesSection = `${languagesPlaceholder}\n${languageListItems}\n\n<div align="center">\n  <img src="https://github.com/${process.env.ORG_NAME}/.github/raw/main/assets/language-chart.png" alt="Top Languages" width="500">\n</div>`;
+  let lastUpdatedSection = `${lastUpdatedPlaceholder} ${new Date().toISOString().split('T')[0]}_`;
 
-## Combined GitHub Stats
-${statsTable}
+  // Find existing sections or insert before 'Experience and Tools' / 'Last updated'
+  if (readmeContent.includes(statsPlaceholder)) {
+    readmeContent = readmeContent.replace(/## Combined GitHub Stats[\s\S]*?(?=## |\n_Last updated:)/, statsSection + '\n\n');
+  } else if (readmeContent.includes(experiencePlaceholder)) {
+    readmeContent = readmeContent.replace(experiencePlaceholder, statsSection + '\n\n' + experiencePlaceholder);
+  } else {
+    readmeContent += '\n\n' + statsSection;
+  }
 
-## Top Languages
-${languagePercentages}
+  if (readmeContent.includes(languagesPlaceholder)) {
+    readmeContent = readmeContent.replace(/## Top Languages[\s\S]*?(?=## |\n_Last updated:)/, languagesSection + '\n\n');
+  } else if (readmeContent.includes(experiencePlaceholder)) {
+    readmeContent = readmeContent.replace(experiencePlaceholder, languagesSection + '\n\n' + experiencePlaceholder);
+  } else {
+     readmeContent += '\n\n' + languagesSection;
+  }
 
-<div align="center">
-  <img src="https://github.com/${process.env.ORG_NAME}/.github/raw/main/assets/language-chart.png" alt="Top Languages" width="500">
-</div>
-
-_Last updated: ${new Date().toISOString().split('T')[0]}_
-`;
+  if (readmeContent.includes(lastUpdatedPlaceholder)) {
+    readmeContent = readmeContent.replace(/_Last updated:.*_/, lastUpdatedSection);
+  } else {
+    readmeContent += '\n\n' + lastUpdatedSection;
+  }
   
   // Write updated README
-  fs.writeFileSync(readmePath, newReadmeContent);
+  fs.writeFileSync(readmePath, readmeContent.trim() + '\n'); // Ensure a trailing newline
   console.log('README updated successfully');
 }
 

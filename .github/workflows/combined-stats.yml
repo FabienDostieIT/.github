@@ -26,6 +26,7 @@ jobs:
       - name: Generate combined stats
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
           PERSONAL_USERNAME: fabiendostie
           ORG_NAME: FabienDostieIT
         run: node scripts/generate-stats.js
