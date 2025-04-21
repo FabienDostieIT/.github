@@ -1,258 +1,68 @@
-const { Octokit } = require('@octokit/rest');
 const fs = require('fs');
 const path = require('path');
-const { createCanvas } = require('canvas');
-const Chart = require('chart.js/auto');
 
-// Initialize Octokit with GitHub token
-const octokit = new Octokit({
-  auth: process.env.PAT_TOKEN || process.env.GITHUB_TOKEN, // Use PAT if available
-});
+// No need for Octokit, canvas, chart.js if only updating timestamp and inserting static links
 
-// Create assets directory if it doesn't exist
-const assetsDir = path.join(process.cwd(), 'assets');
-if (!fs.existsSync(assetsDir)) {
-  fs.mkdirSync(assetsDir, { recursive: true });
-}
-
-async function fetchPersonalStats() {
-  const username = process.env.PERSONAL_USERNAME;
-  console.log(`Fetching stats for personal account: ${username}`);
-  
-  // Get user's repositories using pagination
-  const repos = await octokit.paginate(octokit.repos.listForUser, {
-    username,
-    per_page: 100, // Still specify per_page for efficiency
-  });
-  
-  // Count stars, forks, and contributions
-  const stats = {
-    repoCount: repos.length,
-    stars: repos.reduce((total, repo) => total + repo.stargazers_count, 0),
-    forks: repos.reduce((total, repo) => total + repo.forks_count, 0),
-    languages: {},
-  };
-  
-  // Get language data for each repo
-  for (const repo of repos) {
-    try {
-      const { data: languages } = await octokit.repos.listLanguages({
-        owner: username,
-        repo: repo.name,
-      });
-      
-      for (const [language, bytes] of Object.entries(languages)) {
-        stats.languages[language] = (stats.languages[language] || 0) + bytes;
-      }
-    } catch (error) {
-      console.error(`Error fetching languages for ${repo.name}:`, error);
-    }
-  }
-  
-  return stats;
-}
-
-async function fetchOrganizationStats() {
-  const orgName = process.env.ORG_NAME;
-  console.log(`Fetching stats for organization: ${orgName}`);
-  
-  // Get organization's repositories using pagination
-  const repos = await octokit.paginate(octokit.repos.listForOrg, {
-    org: orgName,
-    per_page: 100, // Still specify per_page for efficiency
-  });
-  
-  // Count stars, forks, and contributions
-  const stats = {
-    repoCount: repos.length,
-    stars: repos.reduce((total, repo) => total + repo.stargazers_count, 0),
-    forks: repos.reduce((total, repo) => total + repo.forks_count, 0),
-    languages: {},
-  };
-  
-  // Get language data for each repo
-  for (const repo of repos) {
-    try {
-      const { data: languages } = await octokit.repos.listLanguages({
-        owner: orgName,
-        repo: repo.name,
-      });
-      
-      for (const [language, bytes] of Object.entries(languages)) {
-        stats.languages[language] = (stats.languages[language] || 0) + bytes;
-      }
-    } catch (error) {
-      console.error(`Error fetching languages for ${repo.name}:`, error);
-    }
-  }
-  
-  return stats;
-}
-
-async function generateLanguageChart(personalStats, orgStats) {
-  // Combine language data
-  const combinedLanguages = {};
-  
-  for (const [language, bytes] of Object.entries(personalStats.languages)) {
-    combinedLanguages[language] = (combinedLanguages[language] || 0) + bytes;
-  }
-  
-  for (const [language, bytes] of Object.entries(orgStats.languages)) {
-    combinedLanguages[language] = (combinedLanguages[language] || 0) + bytes;
-  }
-  
-  // Sort languages by bytes
-  const sortedLanguages = Object.entries(combinedLanguages)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 12); // Take top 12 languages
-  
-  // Prepare data for chart
-  const labels = sortedLanguages.map(([language]) => language);
-  const data = sortedLanguages.map(([, bytes]) => bytes);
-  
-  // Create a canvas
-  const canvas = createCanvas(800, 400);
-  const ctx = canvas.getContext('2d');
-  
-  // Generate chart
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels,
-      datasets: [{
-        data,
-        backgroundColor: [
-          '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0',
-          '#9966ff', '#ff9f40', '#c9cbcf', '#7fc97f'
-        ],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: 'Top Languages by Repo',
-          color: 'white',
-          font: {
-            size: 18
-          }
-        },
-        legend: {
-          labels: {
-            color: 'white'
-          }
-        }
-      }
-    }
-  });
-  
-  // Save chart to file
-  const buffer = canvas.toBuffer('image/png');
-  fs.writeFileSync(path.join(assetsDir, 'language-chart.png'), buffer);
-  
-  return {
-    languages: sortedLanguages.reduce((obj, [lang, bytes]) => {
-      obj[lang] = bytes;
-      return obj;
-    }, {})
-  };
-}
-
-async function generateStatsTable(personalStats, orgStats) {
-  // Combine stats
-  const combined = {
-    repoCount: personalStats.repoCount + orgStats.repoCount,
-    stars: personalStats.stars + orgStats.stars,
-    forks: personalStats.forks + orgStats.forks
-  };
-  
-  // Create comparison table for README
-  return `
-| Stat | Personal | Organization | Combined |
-|------|----------|--------------|----------|
-| Repositories | ${personalStats.repoCount} | ${orgStats.repoCount} | ${combined.repoCount} |
-| Stars | ${personalStats.stars} | ${orgStats.stars} | ${combined.stars} |
-| Forks | ${personalStats.forks} | ${orgStats.forks} | ${combined.forks} |
-`;
-}
-
-async function updateReadme(statsTable, languageData) {
+async function updateReadme() {
   // Path to README file
   const readmePath = path.join(process.cwd(), 'profile', 'README.md');
   
   // Read current README
   let readmeContent = fs.existsSync(readmePath) 
     ? fs.readFileSync(readmePath, 'utf8')
-    : `# ${process.env.ORG_NAME}\n\nWelcome to our organization GitHub page!\n\n`;
+    : `# ${process.env.ORG_NAME || 'GitHub Profile'}\n\nWelcome!\n\n`; // Basic fallback
+
+  const personalUsername = process.env.PERSONAL_USERNAME || 'fabiendostie'; // Use env var or default
+
+  // Define the stats card and language card markdown
+  const statsCardMd = `[![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=${personalUsername}&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)`;
+  const langCardMd = `[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=${personalUsername}&layout=compact&theme=tokyonight&langs_count=10&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)`;
   
-  // Format language data for README
-  const totalBytes = Object.values(languageData.languages).reduce((a, b) => a + b, 0);
-  const languageListItems = Object.entries(languageData.languages)
-    .map(([language, bytes]) => {
-      const percentage = totalBytes > 0 ? ((bytes / totalBytes) * 100).toFixed(1) : 0;
-      return `  * ${language}: ${percentage}%`;
-    })
-    .join('\n');
-  
-  // Define the section content placeholders if they don't exist
-  const statsPlaceholder = '## Combined GitHub Stats';
-  const languagesPlaceholder = '## Top Languages';
-  const experiencePlaceholder = '## Experience and Tools'; // Use this as an anchor
+  // Define placeholders
+  const statsStartPlaceholder = '<!--START_STATS_CARD-->';
+  const statsEndPlaceholder = '<!--END_STATS_CARD-->';
+  const langStartPlaceholder = '<!--START_LANG_CARD-->';
+  const langEndPlaceholder = '<!--END_LANG_CARD-->';
   const lastUpdatedPlaceholder = '_Last updated:';
-
-  let statsSection = `${statsPlaceholder}\n${statsTable}`;
-  let languagesSection = `${languagesPlaceholder}\n${languageListItems}\n\n<div align="center">\n  <img src="https://github.com/${process.env.ORG_NAME}/.github/raw/main/assets/language-chart.png" alt="Top Languages" width="500">\n</div>`;
-  let lastUpdatedSection = `${lastUpdatedPlaceholder} ${new Date().toISOString().split('T')[0]}_`;
-
-  // Find existing sections or insert before 'Experience and Tools' / 'Last updated'
-  if (readmeContent.includes(statsPlaceholder)) {
-    readmeContent = readmeContent.replace(/## Combined GitHub Stats[\s\S]*?(?=## |\n_Last updated:)/, statsSection + '\n\n');
-  } else if (readmeContent.includes(experiencePlaceholder)) {
-    readmeContent = readmeContent.replace(experiencePlaceholder, statsSection + '\n\n' + experiencePlaceholder);
-  } else {
-    readmeContent += '\n\n' + statsSection;
-  }
-
-  if (readmeContent.includes(languagesPlaceholder)) {
-    readmeContent = readmeContent.replace(/## Top Languages[\s\S]*?(?=## |\n_Last updated:)/, languagesSection + '\n\n');
-  } else if (readmeContent.includes(experiencePlaceholder)) {
-    readmeContent = readmeContent.replace(experiencePlaceholder, languagesSection + '\n\n' + experiencePlaceholder);
-  } else {
-     readmeContent += '\n\n' + languagesSection;
-  }
-
-  if (readmeContent.includes(lastUpdatedPlaceholder)) {
-    readmeContent = readmeContent.replace(/_Last updated:.*_/, lastUpdatedSection);
-  } else {
-    readmeContent += '\n\n' + lastUpdatedSection;
-  }
   
+  // Replace content between placeholders
+  const statsRegex = new RegExp(`${statsStartPlaceholder}[\s\S]*?${statsEndPlaceholder}`);
+  const langRegex = new RegExp(`${langStartPlaceholder}[\s\S]*?${langEndPlaceholder}`);
+  const lastUpdatedRegex = new RegExp(`${lastUpdatedPlaceholder}.*_`);
+
+  if (readmeContent.match(statsRegex)) {
+    readmeContent = readmeContent.replace(statsRegex, `${statsStartPlaceholder}\n${statsCardMd}\n${statsEndPlaceholder}`);
+  } else {
+    console.warn('Stats card placeholders not found in README.');
+  }
+
+  if (readmeContent.match(langRegex)) {
+    readmeContent = readmeContent.replace(langRegex, `${langStartPlaceholder}\n${langCardMd}\n${langEndPlaceholder}`);
+  } else {
+    console.warn('Language card placeholders not found in README.');
+  }
+
+  // Update last updated timestamp
+  const lastUpdatedText = `${lastUpdatedPlaceholder} ${new Date().toISOString().split('T')[0]}_`;
+  if (readmeContent.match(lastUpdatedRegex)) {
+      readmeContent = readmeContent.replace(lastUpdatedRegex, lastUpdatedText);
+  } else {
+      console.warn('Last updated placeholder not found, appending to end.');
+      readmeContent += `\n\n${lastUpdatedText}`;
+  }
+
   // Write updated README
-  fs.writeFileSync(readmePath, readmeContent.trim() + '\n'); // Ensure a trailing newline
-  console.log('README updated successfully');
+  fs.writeFileSync(readmePath, readmeContent.trim() + '\n'); 
+  console.log('README updated successfully with stats cards and timestamp.');
 }
 
 async function main() {
   try {
-    console.log('Starting to generate combined GitHub stats...');
-    
-    // Fetch stats
-    const personalStats = await fetchPersonalStats();
-    const orgStats = await fetchOrganizationStats();
-    
-    // Generate language chart
-    const languageData = await generateLanguageChart(personalStats, orgStats);
-    
-    // Generate stats table
-    const statsTable = await generateStatsTable(personalStats, orgStats);
-    
-    // Update README
-    await updateReadme(statsTable, languageData);
-    
-    console.log('Combined GitHub stats generated successfully!');
+    console.log('Starting README update...');
+    await updateReadme();
+    console.log('README update process finished successfully!');
   } catch (error) {
-    console.error('Error generating combined GitHub stats:', error);
+    console.error('Error updating README:', error);
     process.exit(1);
   }
 }
