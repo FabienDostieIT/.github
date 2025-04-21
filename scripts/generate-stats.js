@@ -18,7 +18,7 @@ async function updateReadme() {
   const personalUsername = process.env.PERSONAL_USERNAME || 'fabiendostie';
 
   const statsCardMd = `[![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=${personalUsername}&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)`;
-  const langCardMd = `[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=${personalUsername}&layout=compact&theme=tokyonight&langs_count=10&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)`;
+  const langCardMd = `[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=${personalUsername}&layout=compact&theme=tokyonight&langs_count=12&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)`;
 
   const statsStartPlaceholder = '<!--START_STATS_CARD-->';
   const statsEndPlaceholder = '<!--END_STATS_CARD-->';
