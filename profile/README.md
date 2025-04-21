@@ -25,19 +25,30 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 
 ## 📊 GitHub Metrics Dashboard
 
-<!--START_STATS_CARD-->
-[![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=fabiendostie&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
-<!--END_STATS_CARD-->
+<div align="center">
+ <!--START_STATS_CARD-->
+ [![Fabien Dostie's GitHub stats](https://github-readme-stats.vercel.app/api?username=fabiendostie&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
+ <!--END_STATS_CARD-->
+</div>
 
-### 💻 Top Languages
+<div align="center">
+ ### 💻 Top Languages
 
-<!--START_LANG_CARD-->
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=fabiendostie&layout=compact&theme=tokyonight&langs_count=12&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
-<!--END_LANG_CARD-->
+ <!--START_LANG_CARD-->
+ [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=fabiendostie&layout=pie&theme=tokyonight&langs_count=12&hide_border=true&include_all_commits=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
+ <!--END_LANG_CARD-->
+</div>
 
-### Contribution Activity
+<div align="center">
+ ### Contribution Activity
+
+ <a href="https://github.com/Ashutosh00710/github-readme-activity-graph"><img alt="Fabien Dostie\'s Activity Graph" src="https://github-readme-activity-graph.vercel.app/graph?username=fabiendostie&bg_color=0d1117&color=ffffff&line=00b4ab&point=ffffff&area=true&hide_border=true" /></a>
+</div>
 
 ## Experience and Tools
+
+<details>
+<summary>I have some experience with:</summary>
 ### I have some experience with:
 <div align="center">
   <!-- Web -->
@@ -55,6 +66,8 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flask/flask-original-wordmark.svg" alt="flask" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go" width="20" height="20"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="20" height="20"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dart/dart-original.svg" alt="dart" width="20" height="20"/>
   <!-- Infra/Scripting -->
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" alt="bash" width="20" height="20"/> 
@@ -69,7 +82,10 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-original.svg" alt="flutter" width="20" height="20"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/xcode/xcode-original.svg" alt="xcode" width="20" height="20"/>
 </div>
+</details>
 
+<details>
+<summary>Some of the tools I use frequently:</summary>
 ### Some of the tools I use frequently:
 <div align="center">
   <!-- OS -->
@@ -126,6 +142,7 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
   <img src="../assets/icons/gemini-color.svg" alt="Gemini" width="20" height="20"/>
   <img src="../assets/icons/claude-color.svg" alt="Claude" width="20" height="20"/>
 </div>
+</details>
 
 ## 👥 Our Team
 [Optional: Brief info about key team members]
@@ -133,4 +150,4 @@ Natural Language Interaction: Enables complex conversational queries to retrieve
 ## 📫 Connect With Us
 [Contact information and social links]
 
-_Last updated: 2025-04-21_
+Last updated: 2025-04-21

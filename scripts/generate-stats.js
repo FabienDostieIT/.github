@@ -24,7 +24,7 @@ async function updateReadme() {
   const statsEndPlaceholder = '<!--END_STATS_CARD-->';
   const langStartPlaceholder = '<!--START_LANG_CARD-->';
   const langEndPlaceholder = '<!--END_LANG_CARD-->';
-  const lastUpdatedPlaceholder = '_Last updated:';
+  const lastUpdatedPlaceholder = 'Last updated:';
 
   let newLines = [];
   let processingStats = false;
@@ -76,11 +76,11 @@ async function updateReadme() {
   }
   
   // Update timestamp in the final lines array
-  const lastUpdatedRegex = new RegExp(`^${lastUpdatedPlaceholder}.*_$`);
+  const lastUpdatedRegex = new RegExp(`^${lastUpdatedPlaceholder}.*`);
   let timestampUpdated = false;
   for (let i = 0; i < newLines.length; i++) {
       if (newLines[i].match(lastUpdatedRegex)) {
-          newLines[i] = `${lastUpdatedPlaceholder} ${new Date().toISOString().split('T')[0]}_`;
+          newLines[i] = `${lastUpdatedPlaceholder} ${new Date().toISOString().split('T')[0]}`;
           timestampUpdated = true;
           console.log('Timestamp line updated.');
           break;
@@ -88,7 +88,7 @@ async function updateReadme() {
   }
   if (!timestampUpdated) {
       console.warn('Last updated placeholder not found, appending timestamp to end.');
-      newLines.push(`${lastUpdatedPlaceholder} ${new Date().toISOString().split('T')[0]}_`);
+      newLines.push(`${lastUpdatedPlaceholder} ${new Date().toISOString().split('T')[0]}`);
   }
 
   const finalContent = newLines.join('\n').trim() + '\n';
