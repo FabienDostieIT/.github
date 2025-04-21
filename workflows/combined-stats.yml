@@ -1,0 +1,38 @@
+name: Combined GitHub Stats
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs at midnight every day
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install @octokit/rest chart.js canvas
+
+      - name: Generate combined stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERSONAL_USERNAME: fabiendostie
+          ORG_NAME: FabienDostieIT
+        run: node .github/scripts/generate-stats.js
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add profile/README.md
+          git add assets/
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update combined stats"
+          git push
